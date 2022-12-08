@@ -3,12 +3,12 @@
 namespace App\Http\Controllers\Customer;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\LoanRequest;
 use App\Http\Resources\LoanResource;
 use App\Models\Loan;
 use App\Models\SchedulePayment;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Validator;
 
 class LoanController extends Controller
@@ -16,9 +16,9 @@ class LoanController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
-    public function index()
+    public function index(): Response
     {
 
         $employees = Loan::all();
@@ -29,10 +29,10 @@ class LoanController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  App\Http\Requests\LoanRequest  $request
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @return Response
      */
-    public function create_loan(LoanRequest $request)
+    public function create_loan(Request $request): Response
     {
         try {
             $data = $request->all();
@@ -58,9 +58,10 @@ class LoanController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @param $id
+     * @return Response
      */
-    public function show_loan($id)
+    public function show_loan($id): Response
     {
         try {
             $loan = Loan::select('*')->with('schedulePayment')->where('id', $id)->first();
@@ -74,10 +75,10 @@ class LoanController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @return Response
      */
-    public function schedule_payment(Request $request)
+    public function schedule_payment(Request $request): Response
     {
         try {
             $data = $request->all();
